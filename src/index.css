@@ -6,3 +6,11 @@
 html {
   font-size: 62.5%;
 }
+
+div {
+  text-align: left; /* Đặt lại text-align cho tất cả các div */
+}
+
+h1, h2, h3, h4, h5, h6, p, li {
+  text-align: left; /* Đặt lại text-align cho các phần tử tiêu đề và đoạn văn */
+}
