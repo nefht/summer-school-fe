@@ -24,6 +24,8 @@ const RichTextDisplay = ({ data }) => {
     if (textObj.italic) text = <i>{text}</i>;
     if (textObj.underline) text = <u>{text}</u>;
     if (textObj.strikethrough) text = <s>{text}</s>;
+    if (textObj.code) text = <code>{text}</code>;
+    if (textObj.text === '') text = <br />;
     return text;
   };
 
@@ -64,6 +66,13 @@ const RichTextDisplay = ({ data }) => {
           return <ol key={index}>{renderChildren(child.children)}</ol>;
         case 'ul':
           return <ul key={index}>{renderChildren(child.children)}</ul>;
+        case 'blockquote':
+          return (
+            <blockquote key={index}>
+              {renderChildren(child.children)}
+            </blockquote>
+          );
+        case 'bold':
         case 'indent':
           return (
             <div style={{ marginLeft: '20px' }} key={index}>

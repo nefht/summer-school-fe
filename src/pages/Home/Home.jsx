@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import useMessage from './../../hooks/useMessage';
 import { getPosts } from './../../apis/posts';
 import RichTextDisplay from './../../utils/RichTextDisplay/RichTextDisplay';
+import RichTextConvert from './../../utils/RichTextConvert';
 
 function Home() {
   const { messageApi, contextHolder } = useMessage();
@@ -26,6 +27,7 @@ function Home() {
     <>
       {contextHolder}
       <RichTextDisplay data={blogData} />
+      {/* {blogData && RichTextConvert(blogData)} */}
     </>
   );
 }
