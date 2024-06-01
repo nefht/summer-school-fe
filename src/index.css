@@ -1,8 +1,86 @@
+:root {
+  --main-font-family: 'Raleway', sans-serif;
+  --main-color: #0b7077;
+  --main-font-color: #252641;
+  --special-color: #fd661f;
+}
+
 * {
   margin: 0;
   box-sizing: border-box;
+  font-family: Raleway;
 }
 
 html {
   font-size: 62.5%;
 }
+
+/* Font embedded */
+@font-face {
+  font-family: Raleway;
+  src: url('/fonts/Raleway/Raleway-Black.ttf');
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: Raleway;
+  src: url('/fonts/Raleway/Raleway-ExtraBold.ttf');
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: Raleway;
+  src: url('/fonts/Raleway/Raleway-Bold.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: Raleway;
+  src: url('/fonts/Raleway/Raleway-SemiBold.ttf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: Raleway;
+  src: url('/fonts/Raleway/Raleway-Medium.ttf');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: Raleway;
+  src: url('/fonts/Raleway/Raleway-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Raleway;
+  src: url('/fonts/Raleway/Raleway-Light.ttf');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Raleway;
+  src: url('/fonts/Raleway/Raleway-ExtraLight.ttf');
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: Raleway;
+  src: url('/fonts/Raleway/Raleway-Thin.ttf');
+  font-weight: 100;
+}
+
+/* div {
+  text-align: left;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li {
+  text-align: left;
+} */
