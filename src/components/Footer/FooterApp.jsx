@@ -40,6 +40,7 @@ function FooterApp() {
             <div>fit@vnu.edu.vn.</div>
           </div>
         </div>
+        <div></div>
       </Footer>
     </Row>
   );

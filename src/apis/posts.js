@@ -9,4 +9,13 @@ const getPosts = async (req, res) => {
   }
 };
 
-export { getPosts };
+const getPostById = async (id) => {
+  try {
+    const response = await request.get(`/posts/${id}`);
+    return response;
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+export { getPosts, getPostById };
