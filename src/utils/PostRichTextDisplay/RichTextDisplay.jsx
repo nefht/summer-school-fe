@@ -1,21 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { getImages } from '../../apis/media';
+import classnames from 'classnames/bind';
+import styles from './RichTextDisplay.module.css';
+
+const cx = classnames.bind(styles);
 
 const RichTextDisplay = ({ data }) => {
-  // Lưu images
-  const [images, setImages] = useState([]);
-  // GET images
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await getImages();
-        setImages(response.data.docs);
-      } catch (error) {
-        console.error('Error fetching registrations:', error);
-      }
-    })();
-  }, []);
-
   if (!data) return null;
 
   const renderText = (textObj) => {
@@ -81,20 +70,34 @@ const RichTextDisplay = ({ data }) => {
           );
         case 'upload':
           return (
-            <img src={child.value.url} alt="Upload image" />
-          )
-        // case 'upload':
-        //   const image = images.find((img) => img.id === child.value.id);
-        //   return image ? (
-        //     <img src={image.url} alt="Uploaded Content" key={index} />
-        //   ) : <span>KHONG LOAD DUOC ANH KHONG HIEU TAI SAO</span>;
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                rowGap: '10px',
+              }}
+            >
+              <img
+                style={{ width: '70%', marginTop: '20px' }}
+                src={child.value.url}
+                alt={child.value.alt}
+                key={index}
+              />
+              <i>{child.value.description}</i>
+            </div>
+          );
         default:
           return <span key={index}>{renderText(child)}</span>;
       }
     });
   };
 
-  return <div>{renderChildren(data)}</div>;
+  return (
+    <div className={cx('wrapper')}>
+      <div className={cx('content')}>{renderChildren(data)}</div>
+    </div>
+  );
 };
 
 export default RichTextDisplay;
