@@ -6,6 +6,7 @@ import Layout from './components/Layout';
 import CourseDetail from './pages/Course/CourseDetail';
 import Posts from './pages/Posts/Posts';
 import PostDetail from './pages/Posts/PostDetail';
+import AboutUs from './pages/AboutUs/AboutUs';
 
 function App() {
   const { messageApi, contextHolder } = useMessage();
@@ -25,6 +26,7 @@ function App() {
           <Route path="/course-detail" element={<CourseDetail />} />
           <Route path="/posts" element={<Posts />} />
           <Route path="/post-detail/:id" element={<PostDetail />} />
+          <Route path="/about-us" element={<AboutUs />} />
         </Route>
       </Routes>
     </>

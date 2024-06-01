@@ -68,12 +68,14 @@ function HeaderApp() {
           </Link>
         </Col>
         <Col xl={1}>
-          <Button
-            type="text"
-            className={cx('header-btn', { 'page-btn': aboutUs })}
-          >
-            Giới thiệu
-          </Button>
+          <Link to="/about-us">
+            <Button
+              type="text"
+              className={cx('header-btn', { 'page-btn': aboutUs })}
+            >
+              Giới thiệu
+            </Button>
+          </Link>
         </Col>
         <Col xl={2}>
           <Link to="http://localhost:3000/admin" target="_blank">
