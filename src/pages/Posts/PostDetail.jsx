@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import classnames from 'classnames/bind';
 import styles from './PostDetail.module.css';
 import { useParams } from 'react-router-dom';
+import { CalendarOutlined } from '@ant-design/icons';
 import useMessage from '../../hooks/useMessage';
 import { getPostById } from '../../apis/posts';
 import RichTextDisplay from '../../utils/PostRichTextDisplay/RichTextDisplay';
 import formatDate from '../../utils/format-date';
-import { CalendarOutlined } from '@ant-design/icons';
 
 const cx = classnames.bind(styles);
 
