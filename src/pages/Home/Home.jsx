@@ -45,7 +45,7 @@ function Home() {
         const response = await getPosts();
         const list = response.data.docs;
 
-        const newpostsList = list.slice(0, 16).map((post) => ({
+        const newPostsList = list.slice(0, 16).map((post) => ({
           id: post.id,
           title: post.title,
           description: post.description,
@@ -55,7 +55,7 @@ function Home() {
           createdAt: post.createdAt,
         }));
 
-        setPostsList(newpostsList);
+        setPostsList(newPostsList);
         // setBlogData(response.data.docs[0].layout[0].content);
       } catch (error) {
         console.error('Error fetching posts:', error);
@@ -133,7 +133,11 @@ function Home() {
                   />
                 }
                 actions={[
-                  <Text key="time" disabled>
+                  <Text
+                    key="time"
+                    disabled
+                    style={{ color: 'var(--main-font-color)' }}
+                  >
                     {fromNow(post.createdAt)}
                   </Text>,
                   <Button
