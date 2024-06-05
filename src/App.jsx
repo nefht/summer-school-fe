@@ -7,6 +7,8 @@ import CourseDetail from './pages/Course/CourseDetail';
 import Posts from './pages/Posts/Posts';
 import PostDetail from './pages/Posts/PostDetail';
 import AboutUs from './pages/AboutUs/AboutUs';
+import Confirmation from './pages/Confirmation/Confirmation';
+import Cancellation from './pages/Confirmation/Cancellation';
 
 function App() {
   const { messageApi, contextHolder } = useMessage();
@@ -20,6 +22,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} /> */}
+        <Route path="/registration-confirmation" element={<Confirmation />} />
+        <Route path="/registration-cancellation" element={<Cancellation />} />
 
         <Route path="" element={<Layout />}>
           <Route index element={<Home />} />

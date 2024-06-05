@@ -15,6 +15,7 @@ import useMessage from '../../hooks/useMessage';
 import logoName from '/images/logo-name.svg';
 import homeDecor from '/images/home-decor.svg';
 import { postRegistration } from '../../apis/registrations';
+import LoadingSpin from '../LoadingSpin';
 
 const cx = classnames.bind(styles);
 
