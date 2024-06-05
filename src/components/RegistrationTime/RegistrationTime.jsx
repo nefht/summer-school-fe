@@ -4,11 +4,14 @@ import styles from './RegistrationTime.module.css';
 import { getCourse } from '../../apis/course';
 import formatDate from '../../utils/format-date';
 import { Button } from 'antd';
+import RegistrationModal from '../RegistrationModal/RegistrationModal';
 
 const cx = classNames.bind(styles);
 
 function RegistrationTime({ atCourse = false }) {
   const [registrationTime, setRegistrationTime] = useState({});
+  const [openRegistrationModal, setOpenRegistrationModal] = useState(false);
+
   // Fetch course
   useEffect(() => {
     (async () => {
@@ -33,9 +36,17 @@ function RegistrationTime({ atCourse = false }) {
       <div className={cx('to')}>đến</div>
       <div className={cx('time', 'start-time')}>{registrationTime.start}</div>
       <div className={cx('time', 'end-time')}>{registrationTime.end}</div>
-      <Button type="primary" className={cx('hidden-btn', { 'btn': atCourse })}>
+      <Button
+        type="primary"
+        className={cx('hidden-btn', { btn: atCourse })}
+        onClick={() => setOpenRegistrationModal(true)}
+      >
         ĐĂNG KÝ NGAY
       </Button>
+      <RegistrationModal
+        open={openRegistrationModal}
+        setOpen={setOpenRegistrationModal}
+      />
     </div>
   );
 }

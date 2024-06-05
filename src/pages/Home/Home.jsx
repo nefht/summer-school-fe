@@ -226,7 +226,8 @@ function Home() {
                   />
                   <div className={cx('part-title')}>{part.partTitle}</div>
                   <div className={cx('part-description')}>
-                    <RichTextDisplay data={part.partDescription} />
+                    {part.partDescription}
+                    {/* <RichTextDisplay data={part.partDescription} /> */}
                   </div>
                   <div className={cx('part-index')}>Phần {index + 1}</div>
                 </div>
