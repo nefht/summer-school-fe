@@ -13,9 +13,9 @@ const getRegistrations = async (req, res) => {
  *
  * @param {object} body
  * @param {string} body.name
+ * @param {string} body.gender
  * @param {string} body.dateOfBirth
  * @param {string} body.email
- * @param {string} body.gender
  * @param {string} body.targetGroup
  * @param {string} body.schoolOrCompany
  * @param {string} body.knowledgeLevel
@@ -24,7 +24,7 @@ const getRegistrations = async (req, res) => {
 
 const postRegistration = async (body) => {
   try {
-    const response = await request.post(body);
+    const response = await request.post('/registrations', body);
     return response;
   } catch (error) {
     return error;

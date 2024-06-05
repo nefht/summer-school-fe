@@ -83,6 +83,7 @@
 }
 
 .btn {
+  display: block;
   width: 360px;
   height: 80px;
   background-color: var(--special-color);
