@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './RegistrationTime.module.css';
 import { getCourse } from '../../apis/course';
 import formatDate from '../../utils/format-date';
-import { Button } from 'antd';
+import { Button, Tooltip } from 'antd';
 import RegistrationModal from '../RegistrationModal/RegistrationModal';
 
 const cx = classNames.bind(styles);
@@ -11,6 +11,7 @@ const cx = classNames.bind(styles);
 function RegistrationTime({ atCourse = false }) {
   const [registrationTime, setRegistrationTime] = useState({});
   const [openRegistrationModal, setOpenRegistrationModal] = useState(false);
+  const [registrationEnabled, setRegistrationEnabled] = useState(false);
 
   // Fetch course
   useEffect(() => {
@@ -22,6 +23,18 @@ function RegistrationTime({ atCourse = false }) {
           start: formatDate(course.registrationTime.registrationStartDate),
           end: formatDate(course.registrationTime.registrationEndDate),
         });
+
+        const currentTime = Date.now();
+        const registrationStartTime = new Date(
+          course.registrationTime.registrationStartDate,
+        ).getTime();
+        const registrationEndTime = new Date(
+          course.registrationTime.registrationEndDate,
+        ).getTime();
+        setRegistrationEnabled(
+          currentTime >= registrationStartTime &&
+            currentTime <= registrationEndTime,
+        );
       } catch (error) {
         console.error('Error fetching course:', error);
       }
@@ -36,13 +49,16 @@ function RegistrationTime({ atCourse = false }) {
       <div className={cx('to')}>đến</div>
       <div className={cx('time', 'start-time')}>{registrationTime.start}</div>
       <div className={cx('time', 'end-time')}>{registrationTime.end}</div>
-      <Button
-        type="primary"
-        className={cx('hidden-btn', { btn: atCourse })}
-        onClick={() => setOpenRegistrationModal(true)}
-      >
-        ĐĂNG KÝ NGAY
-      </Button>
+      <Tooltip title={!registrationEnabled ? 'Đã hết hạn đăng ký' : null}>
+        <Button
+          type="primary"
+          className={cx('hidden-btn', { btn: atCourse })}
+          onClick={() => setOpenRegistrationModal(true)}
+          disabled={!registrationEnabled}
+        >
+          ĐĂNG KÝ NGAY
+        </Button>
+      </Tooltip>
       <RegistrationModal
         open={openRegistrationModal}
         setOpen={setOpenRegistrationModal}
