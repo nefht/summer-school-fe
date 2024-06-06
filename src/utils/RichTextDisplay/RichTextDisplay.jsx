@@ -81,8 +81,19 @@ const RichTextDisplay = ({ data }) => {
           );
         case 'upload':
           return (
-            <img src={child.value.url} alt="Upload image" />
-          )
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                marginBottom: '10px',
+              }}
+              key={index}
+            >
+              <img src={child.value.url} alt="Upload image" />
+              <i>{child.value.description}</i>
+            </div>
+          );
         // case 'upload':
         //   const image = images.find((img) => img.id === child.value.id);
         //   return image ? (
