@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './AboutUs.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,38 +8,32 @@ import {
   faEnvelope,
   faGlobe,
 } from '@fortawesome/free-solid-svg-icons';
-import aboutus from '/images/aboutus.jpg';
+import { getAboutUs } from '../../apis/about-us';
+import RichTextDisplay from '../../utils/RichTextDisplay/RichTextDisplay';
 
 const cx = classNames.bind(styles);
 
 function AboutUs() {
+  const [data, setData] = useState({});
+
+  // Fetch about-us data
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await getAboutUs();
+        const aboutUsData = response.data.docs[0];
+        setData(aboutUsData);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
+    })();
+  }, []);
+
   return (
     <div className={cx('about-page')}>
       <div className={cx('intro')}>
         <h1>Giới thiệu</h1>
-        <p>
-          Được thành lập vào năm 1995 nhưng Khoa CNTT có truyền thống hơn 50 năm
-          phát triển từ năm 1965 với việc đào tạo chuyên ngành Máy tính tại Khoa
-          Toán Cơ thuộc Trường Đại học Tổng hợp Hà Nội. Với sự nỗ lực cố gắng
-          của tập thể các cán bộ giảng viên, các thế hệ sinh viên, học viên và
-          nghiên cứu sinh; dưới sự chỉ đạo sát sao, ủng hộ và tạo điều kiện của
-          các thế hệ lãnh đạo Trường ĐHCN và ĐHQGHN, Khoa CNTT ngày hôm nay đã
-          đạt được nhiều thành tích nổi bật trong hoạt động đào tạo, bồi dưỡng
-          nhân tài và nghiên cứu khoa học tiếp cận trình độ tiên tiến trong khu
-          vực và thế giới.
-        </p>
-        <img src={aboutus} alt="AboutUs Image"></img>
-        <p>
-          Được thành lập vào năm 1995 nhưng Khoa CNTT có truyền thống hơn 50 năm
-          phát triển từ năm 1965 với việc đào tạo chuyên ngành Máy tính tại Khoa
-          Toán Cơ thuộc Trường Đại học Tổng hợp Hà Nội. Với sự nỗ lực cố gắng
-          của tập thể các cán bộ giảng viên, các thế hệ sinh viên, học viên và
-          nghiên cứu sinh; dưới sự chỉ đạo sát sao, ủng hộ và tạo điều kiện của
-          các thế hệ lãnh đạo Trường ĐHCN và ĐHQGHN, Khoa CNTT ngày hôm nay đã
-          đạt được nhiều thành tích nổi bật trong hoạt động đào tạo, bồi dưỡng
-          nhân tài và nghiên cứu khoa học tiếp cận trình độ tiên tiến trong khu
-          vực và thế giới.
-        </p>
+        <RichTextDisplay data={data.description} />
       </div>
       <div className={cx('contact-map')}>
         <div className={cx('contact')}>
@@ -49,9 +44,7 @@ function AboutUs() {
             </div>
             <div className={cx('contact-details')}>
               <strong>Địa chỉ:</strong>
-              <address>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </address>
+              <address>{data.address}</address>
             </div>
           </div>
           <div className={cx('contact-item')}>
@@ -60,7 +53,7 @@ function AboutUs() {
             </div>
             <div className={cx('contact-details')}>
               <strong>Số điện thoại:</strong>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p>{data.phone}</p>
             </div>
           </div>
           <div className={cx('contact-item')}>
@@ -69,7 +62,7 @@ function AboutUs() {
             </div>
             <div className={cx('contact-details')}>
               <strong>Email:</strong>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p>{data.email}</p>
             </div>
           </div>
           <div className={cx('contact-item')}>
@@ -78,7 +71,7 @@ function AboutUs() {
             </div>
             <div className={cx('contact-details')}>
               <strong>Website:</strong>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p>{data.website}</p>
             </div>
           </div>
         </div>
@@ -86,7 +79,7 @@ function AboutUs() {
         <div className={cx('map')}>
           <h2>Bản đồ:</h2>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.7624143228474!2d100.52318661540216!3d13.736717990357448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29edab6fa4ff5%3A0x4f91e63e8e255f11!2sKhao%20San%20Road!5e0!3m2!1sen!2sth!4v1625737078140!5m2!1sen!2sth"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.8610911880714!2d105.78010407471467!3d21.038243387453846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab354920c233%3A0x5d0313a3bfdc4f37!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBuZ2jhu4csIMSQ4bqhaSBo4buNYyBRdeG7kWMgZ2lhIEjDoCBO4buZaQ!5e0!3m2!1svi!2s!4v1717679153747!5m2!1svi!2s"
             width="100%"
             height="250"
             style={{ border: 0 }}

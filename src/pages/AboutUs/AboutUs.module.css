@@ -2,6 +2,8 @@
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
+  color: var(--main-font-color);
+  font-family: 'Inter', sans-serif !important;
 }
 
 .intro {
@@ -17,7 +19,7 @@
   margin: 20px 40px 20px 70px;
 }
 
-.intro p {
+.intro div {
   line-height: 1.7;
   font-size: large;
 }

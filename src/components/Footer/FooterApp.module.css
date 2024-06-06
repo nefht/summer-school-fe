@@ -3,6 +3,7 @@
   height: 280px;
   padding: 20px 180px;
   position: relative;
+  display: flex;
 }
 
 .footer-img {
@@ -27,6 +28,7 @@
   gap: 20px;
   font-size: 1.6rem;
   color: var(--main-color);
+  flex: 2;
 }
 
 .content-item {
@@ -41,4 +43,91 @@
 .label {
   font-weight: 700;
   margin-right: 10px;
+}
+
+.facebook-address {
+  width: 340px;
+  height: 130px;
+  border: none;
+  overflow: hidden;
+  z-index: 99;
+  flex: 1;
+}
+
+@media (max-width: 1200px) {
+  .footer {
+    height: 300px;
+    padding: 60px 0 0 100px;
+    overflow-x: hidden;
+  }
+
+  .footer-img {
+    height: 100%;
+    width: auto;
+  }
+
+  .logo {
+    width: 300px;
+  }
+
+  .footer-content {
+    font-size: 1.6rem;
+    gap: 20px;
+    flex: 1;
+  }
+}
+
+@media (max-width: 992px) {
+  .footer {
+    height: 300px;
+    padding: 60px 0 0 60px;
+    overflow-x: hidden;
+  }
+
+  .footer-img {
+    height: 100%;
+    width: auto;
+  }
+
+  .logo {
+    width: 300px;
+  }
+
+  .footer-content {
+    font-size: 1.6rem;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .facebook-address {
+    display: none;
+  }
+
+  .footer-content {
+    font-size: 1.6rem;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer {
+    height: 200px;
+    padding: 60px 0 0 60px;
+    overflow-x: hidden;
+  }
+
+  .footer-img {
+    height: 100%;
+    width: auto;
+  }
+
+  .logo {
+    width: 200px;
+  }
+
+  .footer-content {
+    font-size: 1.4rem;
+    gap: 7px;
+  }
 }
