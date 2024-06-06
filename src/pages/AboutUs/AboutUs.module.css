@@ -1,0 +1,92 @@
+.about-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.intro {
+  text-align: justify;
+  margin: 30px;
+  max-width: 800px;
+  padding: 20px 50px 40px 50px;
+}
+
+.intro img {
+  width: 80%;
+  height: auto;
+  margin: 20px 40px 20px 70px;
+}
+
+.intro p {
+  line-height: 1.7;
+  font-size: large;
+}
+
+.intro h1 {
+  font-size: xxx-large;
+  padding-bottom: 20px;
+}
+.contact-map {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.contact,
+.map {
+  width: 48%;
+}
+.contact {
+  margin-right: 20px;
+}
+.map {
+  margin-left: 20px;
+}
+.separator {
+  width: 2%;
+  border-left: 1px solid #0b7077;
+}
+.contact h2,
+.map h2 {
+  font-size: xx-large;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #0b7077;
+}
+
+.contact-item i {
+  font-size: 24px;
+  margin-right: 10px;
+  color: #0b7077;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  color: #0b7077;
+}
+
+.contact-details strong {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.contact-details p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.contact-item:not(:last-child) {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+.icon {
+  padding-right: 10px;
+}
