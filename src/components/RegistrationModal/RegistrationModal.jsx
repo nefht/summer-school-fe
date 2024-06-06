@@ -63,9 +63,9 @@ function RegistrationModal({ open = false, setOpen }) {
           messageApi.success(
             'Bạn đã đăng ký học thành công, vui lòng kiểm tra email để xác nhận đăng ký học.',
           );
-          //   setTimeout(() => {
-          //     setOpen(false);
-          //   }, 2000);
+          setTimeout(() => {
+            setOpen(false);
+          }, 2000);
         } else {
           messageApi.error('Đăng ký thất bại.');
         }

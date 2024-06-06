@@ -92,3 +92,10 @@
   top: 220px;
   font-size: 2.4rem;
 }
+
+.btn:disabled {
+  background: var(--special-color);
+  color: #fdfdfd;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
