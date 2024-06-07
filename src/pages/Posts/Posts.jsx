@@ -10,6 +10,8 @@ import fromNow from '../../utils/convert-time';
 import vectorTitle from '/images/vector-title.svg';
 import formatDate from '../../utils/format-date';
 import LoadingSpin from '../../components/LoadingSpin';
+import decorLeft from '/images/course-decor-left.svg';
+import decorRight from '/images/course-decor-right.svg';
 
 const cx = classnames.bind(styles);
 const { Meta } = Card;
@@ -91,6 +93,8 @@ function Posts() {
 
   return (
     <div className={cx('container')}>
+      <img className={cx('decor-left')} src={decorLeft} alt="" />
+      <img className={cx('decor-right')} src={decorRight} alt="" />
       <div className={cx('newest')}>
         <img
           className={cx('newest-img')}

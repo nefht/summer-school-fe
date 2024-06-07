@@ -8,7 +8,7 @@ import RegistrationModal from '../RegistrationModal/RegistrationModal';
 
 const cx = classNames.bind(styles);
 
-function RegistrationTime({ atCourse = false }) {
+function RegistrationTime({ atCourse = false, courseStatus = false }) {
   const [registrationTime, setRegistrationTime] = useState({});
   const [openRegistrationModal, setOpenRegistrationModal] = useState(false);
   const [registrationEnabled, setRegistrationEnabled] = useState(false);
@@ -49,12 +49,20 @@ function RegistrationTime({ atCourse = false }) {
       <div className={cx('to')}>đến</div>
       <div className={cx('time', 'start-time')}>{registrationTime.start}</div>
       <div className={cx('time', 'end-time')}>{registrationTime.end}</div>
-      <Tooltip title={!registrationEnabled ? 'Đã hết hạn đăng ký' : null}>
+      <Tooltip
+        title={
+          !registrationEnabled
+            ? 'Đã hết hạn đăng ký'
+            : !courseStatus
+              ? 'Đã đóng đăng ký khóa học'
+              : null
+        }
+      >
         <Button
           type="primary"
           className={cx('hidden-btn', { btn: atCourse })}
           onClick={() => setOpenRegistrationModal(true)}
-          disabled={!registrationEnabled}
+          disabled={!registrationEnabled || !courseStatus}
         >
           ĐĂNG KÝ NGAY
         </Button>

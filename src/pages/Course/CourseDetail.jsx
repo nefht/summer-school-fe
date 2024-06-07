@@ -4,6 +4,8 @@ import styles from './CourseDetail.module.css';
 import { Row, Col, Button } from 'antd';
 import vectorTitle2 from '/images/vector-title2.svg';
 import homeDecor from '/images/home-decor.svg';
+import decorLeft from '/images/course-decor-left.svg';
+import decorRight from '/images/course-decor-right.svg';
 import RichTextDisplay from '../../utils/RichTextDisplay/RichTextDisplay';
 import RegistrationTime from '../../components/RegistrationTime/RegistrationTime';
 import { getCourse } from '../../apis/course';
@@ -24,6 +26,7 @@ function CourseDetail() {
         setCourseData({
           title: course.title,
           description: course.description,
+          status: course.status === 'opened' ? true : false,
         });
 
         setCourseParts(course.parts);
@@ -33,9 +36,13 @@ function CourseDetail() {
     })();
   }, []);
 
+  console.log(courseData);
+
   return (
     <>
       <div className={cx('posts')}>
+        <img className={cx('decor-left')} src={decorLeft} alt="" />
+        <img className={cx('decor-right')} src={decorRight} alt="" />
         <div className={cx('posts-title')}>
           <div>
             <span className={cx('title-item', 'title-course')}>Khoá học </span>
@@ -76,7 +83,7 @@ function CourseDetail() {
           src={homeDecor}
           alt="Home decoration"
         /> */}
-        <RegistrationTime atCourse />
+        <RegistrationTime atCourse courseStatus={courseData.status} />
       </div>
     </>
   );

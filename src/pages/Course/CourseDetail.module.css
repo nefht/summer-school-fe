@@ -9,6 +9,18 @@
   overflow-x: hidden;
 }
 
+.decor-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.decor-right {
+  position: absolute;
+  top: 500px;
+  right: 0;
+}
+
 .posts-title {
   width: 100%;
   display: flex;
