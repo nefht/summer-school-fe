@@ -56,14 +56,19 @@ function FooterApp() {
             <div>{data.email}</div>
           </div>
         </div>
-        <iframe
-          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FUET.VNUH&tabs&width=340&height=130&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=false&appId"
-          className={cx('facebook-address')}
-          scrolling="no"
-          frameBorder="0"
-          allowFullScreen={true}
-          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-        ></iframe>
+        <div className={cx('school')}>
+          <span className={cx('item')}>
+            Được tổ chức bởi <b>Trường Đại học Công nghệ</b>
+          </span>
+          <iframe
+            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FUET.VNUH&tabs&width=340&height=130&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=false&appId"
+            className={cx('facebook-address')}
+            scrolling="no"
+            frameBorder="0"
+            allowFullScreen={true}
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          ></iframe>
+        </div>
       </Footer>
     </Row>
   );
