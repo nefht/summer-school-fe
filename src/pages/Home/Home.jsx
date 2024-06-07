@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Home.module.css';
@@ -8,12 +8,10 @@ import useMessage from './../../hooks/useMessage';
 import { getPosts } from './../../apis/posts';
 import { getCourse } from '../../apis/course';
 import RichTextDisplay from '../../utils/RichTextDisplay/RichTextDisplay';
-import RichTextConvert from './../../utils/RichTextConvert';
 import homeImg from '/images/home.svg';
 import exploreButton from '/images/explore-btn.svg';
 import vectorTitle from '/images/vector-title.svg';
 import vectorTitle2 from '/images/vector-title2.svg';
-import courseDecor from '/images/course-decor.svg';
 import homeDecor from '/images/home-decor.svg';
 import certificate from '/images/certificate.svg';
 import lecturers from '/images/lecturers.svg';
@@ -30,6 +28,8 @@ const { Text } = Typography;
 function Home() {
   const { messageApi, contextHolder } = useMessage();
   const navigate = useNavigate();
+
+  const scrollToRef = useRef(null);
 
   const [postsList, setPostsList] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -56,7 +56,6 @@ function Home() {
         }));
 
         setPostsList(newPostsList);
-        // setBlogData(response.data.docs[0].layout[0].content);
       } catch (error) {
         console.error('Error fetching posts:', error);
       }
@@ -82,20 +81,37 @@ function Home() {
     })();
   }, []);
 
-  const startIndex = currentPage * postsPerPage;
-  const endIndex = startIndex + postsPerPage;
-  const currentPosts = postsList.slice(startIndex, endIndex);
+  // Automatic carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentPage((prevPage) => (prevPage + 1) % postsList.length);
+    }, 4000);
+
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, [postsList.length]);
+
+  const startIndex = currentPage;
+  const currentPosts = [
+    ...postsList.slice(startIndex, startIndex + postsPerPage),
+    ...postsList.slice(
+      0,
+      Math.max(0, startIndex + postsPerPage - postsList.length),
+    ),
+  ].slice(0, postsPerPage);
 
   const handleNextPage = () => {
-    if (endIndex < postsList.length) {
-      setCurrentPage(currentPage + 1);
-    }
+    setCurrentPage((prevPage) => (prevPage + 1) % postsList.length);
   };
 
   const handlePrevPage = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
+    setCurrentPage(
+      (prevPage) => (prevPage - 1 + postsList.length) % postsList.length,
+    );
+  };
+
+  const handleScrollClick = () => {
+    console.log(scrollToRef);
+    scrollToRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -104,8 +120,17 @@ function Home() {
       <div className={cx('home-page')}>
         <div className={cx('home-title')}>
           <img className={cx('home-img')} src={homeImg} alt="Home Image" />
-          <img className={cx('explore-btn-img')} src={exploreButton} alt="" />
-          <Button type="primary" className={cx('explore-btn')}>
+          <img
+            className={cx('explore-btn-img')}
+            src={exploreButton}
+            alt=""
+            onClick={handleScrollClick}
+          />
+          <Button
+            type="primary"
+            className={cx('explore-btn')}
+            onClick={() => navigate('/course-detail')}
+          >
             KHÁM PHÁ THÊM
           </Button>
         </div>
@@ -121,6 +146,7 @@ function Home() {
           <div className={cx('posts-list')}>
             {currentPosts.map((post, index) => (
               <Card
+                className={cx('post')}
                 key={index}
                 style={{
                   width: 300,
@@ -169,7 +195,7 @@ function Home() {
               icon={<LeftOutlined style={{ fontSize: 25 }} />}
               className={cx('pagination-btn')}
               onClick={handlePrevPage}
-              disabled={currentPage === 0}
+              disabled={postsList.length <= postsPerPage}
             />
             <Button
               style={{
@@ -178,12 +204,11 @@ function Home() {
               icon={<RightOutlined style={{ fontSize: 25 }} />}
               className={cx('pagination-btn')}
               onClick={handleNextPage}
-              disabled={endIndex >= postsList.length}
+              disabled={postsList.length <= postsPerPage}
             />
           </div>
         </div>
-
-        <div className={cx('posts')}>
+        <div className={cx('posts')} ref={scrollToRef}>
           <div className={cx('posts-title')}>
             <div>
               <span className={cx('title-item', 'title-course')}>
@@ -229,7 +254,6 @@ function Home() {
                   <div className={cx('part-title')}>{part.partTitle}</div>
                   <div className={cx('part-description')}>
                     {part.partDescription}
-                    {/* <RichTextDisplay data={part.partDescription} /> */}
                   </div>
                   <div className={cx('part-index')}>Phần {index + 1}</div>
                 </div>
