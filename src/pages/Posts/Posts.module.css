@@ -8,6 +8,18 @@
   align-items: center;
 }
 
+.decor-left {
+  position: absolute;
+  top: 80px;
+  left: 0;
+}
+
+.decor-right {
+  position: absolute;
+  top: 580px;
+  right: 0;
+}
+
 .newest {
   width: 70%;
   display: flex;

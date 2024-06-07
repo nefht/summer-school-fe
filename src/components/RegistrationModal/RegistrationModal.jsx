@@ -2,7 +2,17 @@ import { useState, useEffect } from 'react';
 import classnames from 'classnames/bind';
 import styles from './RegistrationModal.module.css';
 import { useMutation } from '@tanstack/react-query';
-import { Button, Form, Input, Radio, DatePicker, Upload, Row, Col } from 'antd';
+import {
+  Button,
+  Form,
+  Input,
+  Radio,
+  DatePicker,
+  Upload,
+  Row,
+  Col,
+  Tooltip,
+} from 'antd';
 import {
   CloseOutlined,
   UserOutlined,
@@ -103,7 +113,12 @@ function RegistrationModal({ open = false, setOpen }) {
                 remember: true,
               }}
             >
-              <div className={cx('normal-text')}>Họ và tên</div>
+              <div className={cx('normal-text')}>
+                Họ và tên{' '}
+                <Tooltip placement="rightTop" title="Bạn phải điền mục này">
+                  <span>*</span>
+                </Tooltip>
+              </div>
               <Form.Item
                 className={cx('form-item')}
                 name="name"
@@ -123,7 +138,12 @@ function RegistrationModal({ open = false, setOpen }) {
                 />
               </Form.Item>
 
-              <div className={cx('normal-text')}>Giới tính</div>
+              <div className={cx('normal-text')}>
+                Giới tính{' '}
+                <Tooltip placement="rightTop" title="Bạn phải điền mục này">
+                  <span>*</span>
+                </Tooltip>
+              </div>
               <Form.Item
                 className={cx('form-item')}
                 name="gender"
@@ -148,7 +168,12 @@ function RegistrationModal({ open = false, setOpen }) {
                 </Radio.Group>
               </Form.Item>
 
-              <div className={cx('normal-text')}>Ngày sinh</div>
+              <div className={cx('normal-text')}>
+                Ngày sinh{' '}
+                <Tooltip placement="rightTop" title="Bạn phải điền mục này">
+                  <span>*</span>
+                </Tooltip>
+              </div>
               <Form.Item
                 className={cx('form-item')}
                 name="dateOfBirth"
@@ -175,7 +200,12 @@ function RegistrationModal({ open = false, setOpen }) {
                 />
               </Form.Item>
 
-              <div className={cx('normal-text')}>Email</div>
+              <div className={cx('normal-text')}>
+                Email{' '}
+                <Tooltip placement="rightTop" title="Bạn phải điền mục này">
+                  <span>*</span>
+                </Tooltip>
+              </div>
               <Form.Item
                 className={cx('form-item')}
                 name="email"
@@ -196,7 +226,12 @@ function RegistrationModal({ open = false, setOpen }) {
                 />
               </Form.Item>
 
-              <div className={cx('normal-text')}>Đối tượng</div>
+              <div className={cx('normal-text')}>
+                Đối tượng{' '}
+                <Tooltip placement="rightTop" title="Bạn phải điền mục này">
+                  <span>*</span>
+                </Tooltip>
+              </div>
               <Form.Item
                 className={cx('form-item')}
                 name="targetGroup"
@@ -227,7 +262,12 @@ function RegistrationModal({ open = false, setOpen }) {
                 </Radio.Group>
               </Form.Item>
 
-              <div className={cx('normal-text')}>Trường học/Công ty</div>
+              <div className={cx('normal-text')}>
+                Trường học/Công ty{' '}
+                <Tooltip placement="rightTop" title="Bạn phải điền mục này">
+                  <span>*</span>
+                </Tooltip>
+              </div>
               <Form.Item
                 className={cx('form-item')}
                 name="schoolOrCompany"
@@ -249,7 +289,10 @@ function RegistrationModal({ open = false, setOpen }) {
 
               <div className={cx('normal-text')}>
                 Hiểu biết của bạn về chủ đề{' '}
-                <span className={cx('topic')}>Generative AI?</span>
+                <span className={cx('topic')}>Generative AI? </span>
+                <Tooltip placement="rightTop" title="Bạn phải điền mục này">
+                  <span>*</span>
+                </Tooltip>
               </div>
               <Form.Item
                 className={cx('form-item')}
@@ -297,7 +340,9 @@ function RegistrationModal({ open = false, setOpen }) {
                   onChange={handleChangeForm}
                 />
               </Form.Item>
-
+              <i className={cx('end-text')}>
+                <span>(*)</span> là các mục bắt buộc
+              </i>
               <Button
                 htmlType="submit"
                 className={cx('form-btn')}

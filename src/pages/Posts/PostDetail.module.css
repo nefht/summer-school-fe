@@ -6,6 +6,20 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.decor-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.decor-right {
+  position: absolute;
+  top: 500px;
+  right: 0;
 }
 
 .meta {

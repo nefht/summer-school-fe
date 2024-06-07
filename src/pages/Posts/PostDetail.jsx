@@ -7,6 +7,8 @@ import useMessage from '../../hooks/useMessage';
 import { getPostById } from '../../apis/posts';
 import RichTextDisplay from '../../utils/PostRichTextDisplay/RichTextDisplay';
 import formatDate from '../../utils/format-date';
+import decorLeft from '/images/course-decor-left.svg';
+import decorRight from '/images/course-decor-right.svg';
 
 const cx = classnames.bind(styles);
 
@@ -36,14 +38,14 @@ function PostDetail() {
     <>
       {contextHolder}
       <div className={cx('container')}>
+        <img className={cx('decor-left')} src={decorLeft} alt="" />
+        <img className={cx('decor-right')} src={decorRight} alt="" />
         <div className={cx('meta')}>
-            <div className={cx('title')}>{post.title}</div>
-            <div className={cx('date')}>
-              <CalendarOutlined />
-              <div>
-                Ngày đăng: {formatDate(post.publishedDate)}
-              </div>
-            </div>
+          <div className={cx('title')}>{post.title}</div>
+          <div className={cx('date')}>
+            <CalendarOutlined />
+            <div>Ngày đăng: {formatDate(post.publishedDate)}</div>
+          </div>
         </div>
         <RichTextDisplay data={postContent} />
       </div>
