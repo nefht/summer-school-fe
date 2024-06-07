@@ -91,6 +91,24 @@
   .topic {
     color: var(--special-color);
     font-weight: 700;
+    font-size: 1.8rem;
+  }
+
+  span {
+    color: rgb(188, 0, 0);
+    font-size: 1.8rem;
+  }
+}
+
+.end-text {
+  align-self: flex-end;
+  margin-bottom: 20px;
+  margin-top: -10px;
+  font-weight: 500;
+
+  span {
+    color: rgb(188, 0, 0);
+    font-size: 2rem;
   }
 }
 
