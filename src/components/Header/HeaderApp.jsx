@@ -67,7 +67,7 @@ function HeaderApp() {
             </Button>
           </Link>
         </Col>
-        <Col xl={1}>
+        <Col xl={1} md={0} sm={0} xs={0}>
           <Link to="/about-us">
             <Button
               type="text"

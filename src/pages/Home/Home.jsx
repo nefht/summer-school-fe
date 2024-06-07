@@ -219,11 +219,13 @@ function Home() {
                 }}
               >
                 <div className={cx('course-part')}>
-                  <img
-                    className={cx('part-img')}
-                    src={part.partImage.url}
-                    alt={part.partImage.alt}
-                  />
+                  {part.partImage && (
+                    <img
+                      className={cx('part-img')}
+                      src={part.partImage.url}
+                      alt={part.partImage.alt}
+                    />
+                  )}
                   <div className={cx('part-title')}>{part.partTitle}</div>
                   <div className={cx('part-description')}>
                     {part.partDescription}

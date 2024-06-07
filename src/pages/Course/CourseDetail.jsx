@@ -55,25 +55,27 @@ function CourseDetail() {
           <div className={cx('course-part')} key={index}>
             <div className={cx('part-content')}>
               <div className={cx('part-title')}>
-                PHẦN {index + 1}:{part.partTitle}
+                PHẦN {index + 1}: {part.partTitle}
               </div>
               <div className={cx('part-description')}>
                 <RichTextDisplay data={part.partDetail} />
               </div>
             </div>
-            <img
-              className={cx('part-img')}
-              src={part.partImage.url}
-              alt={part.partImage.alt}
-            />
+            {part.partImage && (
+              <img
+                className={cx('part-img')}
+                src={part.partImage.url}
+                alt={part.partImage.alt}
+              />
+            )}
           </div>
         ))}
 
-        <img
+        {/* <img
           className={cx('home-decoration')}
           src={homeDecor}
           alt="Home decoration"
-        />
+        /> */}
         <RegistrationTime atCourse />
       </div>
     </>
