@@ -38,7 +38,9 @@ function FooterApp() {
           alt="Footer decoration"
         />
         <div className={cx('footer-content')}>
-          <img className={cx('logo')} src={logoName} alt="Logo" />
+          <Link to="/about-us">
+            <img className={cx('logo')} src={logoName} alt="Logo" />
+          </Link>
           <div className={cx('content-item')}>
             <div className={cx('label')}>Địa chỉ: </div>
             <div>{data.address}</div>

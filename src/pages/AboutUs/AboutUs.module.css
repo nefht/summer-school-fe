@@ -47,7 +47,7 @@
 }
 .separator {
   width: 2%;
-  border-left: 1px solid #0b7077;
+  border-left: 1px solid var(--main-color);
 }
 .contact h2,
 .map h2 {
@@ -60,19 +60,19 @@
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  color: #0b7077;
+  color: var(--main-color);
 }
 
 .contact-item i {
   font-size: 24px;
   margin-right: 10px;
-  color: #0b7077;
+  color: var(--main-color);
 }
 
 .contact-details {
   display: flex;
   flex-direction: column;
-  color: #0b7077;
+  color: var(--main-color);
 }
 
 .contact-details strong {
@@ -89,6 +89,7 @@
   border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
 }
+
 .icon {
   padding-right: 10px;
 }

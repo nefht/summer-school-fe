@@ -10,6 +10,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { getAboutUs } from '../../apis/about-us';
 import RichTextDisplay from '../../utils/RichTextDisplay/RichTextDisplay';
+import { useMutation } from '@tanstack/react-query';
+import { Skeleton } from 'antd';
 
 const cx = classNames.bind(styles);
 
@@ -17,22 +19,45 @@ function AboutUs() {
   const [data, setData] = useState({});
 
   // Fetch about-us data
+  const fetchData = useMutation({
+    mutationFn: async () => {
+      const response = await getAboutUs();
+      const aboutUsData = response.data.docs[0];
+      return aboutUsData;
+    },
+    onSuccess: (aboutUsData) => {
+      setData(aboutUsData);
+    },
+    onError: (error) => {
+      console.error('Error fetching posts:', error);
+    },
+  });
+
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await getAboutUs();
-        const aboutUsData = response.data.docs[0];
-        setData(aboutUsData);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      }
-    })();
+    fetchData.mutate();
   }, []);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await getAboutUs();
+  //       const aboutUsData = response.data.docs[0];
+  //       setData(aboutUsData);
+  //     } catch (error) {
+  //       console.error('Error fetching posts:', error);
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <div className={cx('about-page')}>
       <div className={cx('intro')}>
         <h1>Giới thiệu</h1>
+        {fetchData.isPending && (
+          <div style={{ width: '800px' }}>
+            <Skeleton active paragraph={{ rows: 20 }} />
+          </div>
+        )}
         <RichTextDisplay data={data.description} />
       </div>
       <div className={cx('contact-map')}>
