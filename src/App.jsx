@@ -9,9 +9,11 @@ import PostDetail from './pages/Posts/PostDetail';
 import AboutUs from './pages/AboutUs/AboutUs';
 import Confirmation from './pages/Confirmation/Confirmation';
 import Cancellation from './pages/Confirmation/Cancellation';
+import useScrollToTop from './hooks/useScrollToTop';
 
 function App() {
   const { messageApi, contextHolder } = useMessage();
+  useScrollToTop();
 
   return (
     <>
