@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import classnames from 'classnames/bind';
 import styles from './CourseDetail.module.css';
-import { Row, Col, Button } from 'antd';
+import { useMutation } from '@tanstack/react-query';
+import { Row, Col, Button, Skeleton } from 'antd';
 import vectorTitle2 from '/images/vector-title2.svg';
 import homeDecor from '/images/home-decor.svg';
 import decorLeft from '/images/course-decor-left.svg';
@@ -16,27 +17,29 @@ function CourseDetail() {
   const [courseData, setCourseData] = useState({});
   const [courseParts, setCourseParts] = useState([]);
 
-  // Fetch course
+  const fetchCourse = useMutation({
+    mutationFn: async () => {
+      const response = await getCourse();
+      const course = response.data.docs[0];
+      return course;
+    },
+    onSuccess: (course) => {
+      setCourseData({
+        title: course.title,
+        description: course.description,
+        status: course.status === 'opened' ? true : false,
+      });
+
+      setCourseParts(course.parts);
+    },
+    onError: (error) => {
+      console.error('Error fetching course:', error);
+    },
+  });
+
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await getCourse();
-        const course = response.data.docs[0];
-
-        setCourseData({
-          title: course.title,
-          description: course.description,
-          status: course.status === 'opened' ? true : false,
-        });
-
-        setCourseParts(course.parts);
-      } catch (error) {
-        console.error('Error fetching course:', error);
-      }
-    })();
+    fetchCourse.mutate();
   }, []);
-
-  console.log(courseData);
 
   return (
     <>
@@ -54,10 +57,32 @@ function CourseDetail() {
             alt="Decor vector"
           />
         </div>
-        <div className={cx('course-title')}>{courseData.title}</div>
-        <div className={cx('course-description')}>
-          <RichTextDisplay data={courseData.description} />
-        </div>
+        {fetchCourse.isPending ? (
+          <div className={cx('course-description')}>
+            <Skeleton
+              active
+              paragraph={{ rows: 8 }}
+              style={{ marginBottom: '20px' }}
+            />
+            <Skeleton
+              active
+              paragraph={{ rows: 8 }}
+              style={{ marginBottom: '20px' }}
+            />
+            <Skeleton
+              active
+              paragraph={{ rows: 8 }}
+              style={{ marginBottom: '20px' }}
+            />
+          </div>
+        ) : (
+          <>
+            <div className={cx('course-title')}>{courseData.title}</div>
+            <div className={cx('course-description')}>
+              <RichTextDisplay data={courseData.description} />
+            </div>
+          </>
+        )}
         {courseParts.map((part, index) => (
           <div className={cx('course-part')} key={index}>
             <div className={cx('part-content')}>

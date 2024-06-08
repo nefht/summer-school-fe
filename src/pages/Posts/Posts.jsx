@@ -2,9 +2,18 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classnames from 'classnames/bind';
 import styles from './Posts.module.css';
-import { Row, Col, Button, Card, Typography, Input, Pagination } from 'antd';
+import {
+  Row,
+  Col,
+  Button,
+  Card,
+  Typography,
+  Input,
+  Pagination,
+  Skeleton,
+} from 'antd';
 import { CalendarOutlined } from '@ant-design/icons';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { getPostWithParams, getPublishedPosts } from '../../apis/posts';
 import fromNow from '../../utils/convert-time';
 import vectorTitle from '/images/vector-title.svg';
@@ -33,32 +42,37 @@ function Posts() {
     search: '',
   });
 
-  // Fetch posts
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await getPublishedPosts();
-        const list = response.data.docs;
+  const fetchPosts = useMutation({
+    mutationFn: async () => {
+      const response = await getPublishedPosts();
+      const list = response.data.docs;
 
-        const newpostsList = list.map((post) => ({
-          id: post.id,
-          title: post.title,
-          description: post.description,
-          representImage: post.representImage
-            ? post.representImage.url
-            : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-          createdAt: post.publishedDate,
-        }));
+      const newPostsList = list.map((post) => ({
+        id: post.id,
+        title: post.title,
+        description: post.description,
+        representImage: post.representImage
+          ? post.representImage.url
+          : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
+        createdAt: post.publishedDate,
+      }));
 
-        setPostsList(newpostsList);
-        if (newpostsList.length > 0) {
-          setNewestPost(newpostsList[0]);
-          setRecentPosts(newpostsList.slice(1, 4));
-        }
-      } catch (error) {
-        console.error('Error fetching posts:', error);
+      return newPostsList;
+    },
+    onSuccess: (newPostsList) => {
+      setPostsList(newPostsList);
+      if (newPostsList.length > 0) {
+        setNewestPost(newPostsList[0]);
+        setRecentPosts(newPostsList.slice(1, 4));
       }
-    })();
+    },
+    onError: (error) => {
+      console.error('Error fetching posts:', error);
+    },
+  });
+
+  useEffect(() => {
+    fetchPosts.mutate();
   }, []);
 
   const getPostQuery = useQuery({
@@ -95,29 +109,40 @@ function Posts() {
     <div className={cx('container')}>
       <img className={cx('decor-left')} src={decorLeft} alt="" />
       <img className={cx('decor-right')} src={decorRight} alt="" />
-      <div className={cx('newest')}>
-        <img
-          className={cx('newest-img')}
-          src={newestPost.representImage}
-          alt=""
-          onClick={() => handleOpenPostDetail(newestPost.id)}
-        />
-        <div className={cx('newest-container')}>
-          <div className={cx('newest-tag')}>Tin mới nhất</div>
-          <div
-            className={cx('newest-title')}
+      {fetchPosts.isPending ? (
+        <div className={cx('newest')}>
+          <Skeleton
+            active
+            paragraph={{
+              rows: 8,
+            }}
+          />
+        </div>
+      ) : (
+        <div className={cx('newest')}>
+          <img
+            className={cx('newest-img')}
+            src={newestPost.representImage}
+            alt=""
             onClick={() => handleOpenPostDetail(newestPost.id)}
-          >
-            {newestPost.title}
-          </div>
-          <div className={cx('newest-description')}>
-            {newestPost.description}
-          </div>
-          <div className={cx('newest-time')}>
-            {fromNow(newestPost.createdAt)}
+          />
+          <div className={cx('newest-container')}>
+            <div className={cx('newest-tag')}>Tin mới nhất</div>
+            <div
+              className={cx('newest-title')}
+              onClick={() => handleOpenPostDetail(newestPost.id)}
+            >
+              {newestPost.title}
+            </div>
+            <div className={cx('newest-description')}>
+              {newestPost.description}
+            </div>
+            <div className={cx('newest-time')}>
+              {fromNow(newestPost.createdAt)}
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <div className={cx('recent')}>
         <div className={cx('recent-tag')}>
           Tin tức mới
@@ -130,48 +155,59 @@ function Posts() {
         <Row justify={'space-evenly'} style={{ width: '70%' }}>
           {recentPosts.map((post, index) => (
             <Col xl={8} md={12} xs={24} className={cx('recent-post')}>
-              <Card
-                key={index}
-                style={{
-                  width: 300,
-                }}
-                cover={
-                  <img
-                    className={cx('post-image')}
-                    alt="Post"
-                    src={post.representImage}
-                  />
-                }
-                actions={[
-                  <Text
-                    key="time"
-                    disabled
-                    style={{
-                      color: 'var(--main-font-color)',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                  >
-                    {fromNow(post.createdAt)}
-                  </Text>,
-                  <Button
-                    type="primary"
-                    onClick={() => handleOpenPostDetail(post.id)}
-                  >
-                    Xem thêm
-                  </Button>,
-                ]}
-              >
-                <Meta
-                  title={<span className={cx('post-title')}>{post.title}</span>}
-                  description={
-                    <div className={cx('post-description')}>
-                      {post.description}
-                    </div>
-                  }
+              {fetchPosts.isPending ? (
+                <Skeleton
+                  active
+                  paragraph={{
+                    rows: 8,
+                  }}
                 />
-              </Card>
+              ) : (
+                <Card
+                  key={index}
+                  style={{
+                    width: 300,
+                  }}
+                  cover={
+                    <img
+                      className={cx('post-image')}
+                      alt="Post"
+                      src={post.representImage}
+                    />
+                  }
+                  actions={[
+                    <Text
+                      key="time"
+                      disabled
+                      style={{
+                        color: 'var(--main-font-color)',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                    >
+                      {fromNow(post.createdAt)}
+                    </Text>,
+                    <Button
+                      type="primary"
+                      onClick={() => handleOpenPostDetail(post.id)}
+                    >
+                      Xem thêm
+                    </Button>,
+                  ]}
+                >
+                  <Meta
+                    title={
+                      <span className={cx('post-title')}>{post.title}</span>
+                    }
+                    description={
+                      <div className={cx('post-description')}>
+                        {post.description}
+                      </div>
+                    }
+                  />
+                </Card>
+              )}
             </Col>
           ))}
         </Row>
