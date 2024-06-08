@@ -9,6 +9,8 @@ import RichTextDisplay from '../../utils/PostRichTextDisplay/RichTextDisplay';
 import formatDate from '../../utils/format-date';
 import decorLeft from '/images/course-decor-left.svg';
 import decorRight from '/images/course-decor-right.svg';
+import { useMutation } from '@tanstack/react-query';
+import { Skeleton } from 'antd';
 
 const cx = classnames.bind(styles);
 
@@ -19,20 +21,23 @@ function PostDetail() {
   const [post, setPost] = useState({});
   const [postContent, setPostContent] = useState();
 
-  // Get post by id
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await getPostById(id);
-        setPost(response.data);
-        setPostContent(response.data.layout[0].content);
-      } catch (error) {
-        messageApi.error(error.message);
-      }
-    })();
-  }, [id]);
+  const fetchPostById = useMutation({
+    mutationFn: async () => {
+      const response = await getPostById(id);
+      return response;
+    },
+    onSuccess: (response) => {
+      setPost(response.data);
+      setPostContent(response.data.layout[0].content);
+    },
+    onError: (error) => {
+      messageApi.error(error.message);
+    },
+  });
 
-  console.log(post);
+  useEffect(() => {
+    fetchPostById.mutate(id);
+  }, [id]);
 
   return (
     <>
@@ -41,13 +46,33 @@ function PostDetail() {
         <img className={cx('decor-left')} src={decorLeft} alt="" />
         <img className={cx('decor-right')} src={decorRight} alt="" />
         <div className={cx('meta')}>
-          <div className={cx('title')}>{post.title}</div>
+          {fetchPostById.isPending ? (
+            <Skeleton.Input
+              active
+              block
+              size="large"
+              style={{ margin: '80px 0px 50px' }}
+            />
+          ) : (
+            <div className={cx('title')}>{post.title}</div>
+          )}
           <div className={cx('date')}>
             <CalendarOutlined />
             <div>Ngày đăng: {formatDate(post.publishedDate)}</div>
           </div>
         </div>
-        <RichTextDisplay data={postContent} />
+        {fetchPostById.isPending ? (
+          <div style={{ width: '60%' }}>
+            <Skeleton
+              active
+              paragraph={{
+                rows: 10,
+              }}
+            />
+          </div>
+        ) : (
+          <RichTextDisplay data={postContent} />
+        )}
       </div>
     </>
   );

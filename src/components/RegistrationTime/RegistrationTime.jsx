@@ -12,6 +12,7 @@ function RegistrationTime({ atCourse = false, courseStatus = false }) {
   const [registrationTime, setRegistrationTime] = useState({});
   const [openRegistrationModal, setOpenRegistrationModal] = useState(false);
   const [registrationEnabled, setRegistrationEnabled] = useState(false);
+  const [registrationStatus, setRegistrationStatus] = useState('');
 
   // Fetch course
   useEffect(() => {
@@ -24,17 +25,28 @@ function RegistrationTime({ atCourse = false, courseStatus = false }) {
           end: formatDate(course.registrationTime.registrationEndDate),
         });
 
-        const currentTime = Date.now();
+        const currentTime = new Date();
         const registrationStartTime = new Date(
           course.registrationTime.registrationStartDate,
-        ).getTime();
+        );
         const registrationEndTime = new Date(
           course.registrationTime.registrationEndDate,
-        ).getTime();
-        setRegistrationEnabled(
-          currentTime >= registrationStartTime &&
-            currentTime <= registrationEndTime,
         );
+
+        currentTime.setHours(0, 0, 0, 0);
+        registrationStartTime.setHours(0, 0, 0, 0);
+        registrationEndTime.setHours(0, 0, 0, 0);
+
+        if (currentTime < registrationStartTime) {
+          setRegistrationStatus('Chưa đến ngày đăng ký');
+          setRegistrationEnabled(false);
+        } else if (currentTime > registrationEndTime) {
+          setRegistrationStatus('Đã quá hạn đăng ký');
+          setRegistrationEnabled(false);
+        } else {
+          setRegistrationStatus('');
+          setRegistrationEnabled(true);
+        }
       } catch (error) {
         console.error('Error fetching course:', error);
       }
@@ -52,7 +64,7 @@ function RegistrationTime({ atCourse = false, courseStatus = false }) {
       <Tooltip
         title={
           !registrationEnabled
-            ? 'Đã hết hạn đăng ký'
+            ? registrationStatus
             : !courseStatus
               ? 'Đã đóng đăng ký khóa học'
               : null
