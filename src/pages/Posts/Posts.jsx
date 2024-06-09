@@ -250,7 +250,11 @@ function Posts() {
           <div className={cx('no-result')}>Không tìm thấy kết quả!</div>
         )}
 
-        {isPending && <LoadingSpin />}
+        {isPending && (
+          <div className={cx('loading-spin')}>
+            <LoadingSpin />
+          </div>
+        )}
 
         {responseData?.data?.docs
           .slice()

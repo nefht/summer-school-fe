@@ -133,6 +133,10 @@
   padding: 100px;
 }
 
+.loading-spin {
+  margin: 112px;
+}
+
 .remaining-post {
   width: 70%;
   height: auto;
