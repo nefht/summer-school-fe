@@ -5,7 +5,7 @@ import styles from './Home.module.css';
 import { Row, Col, Button, Card, Typography } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import useMessage from './../../hooks/useMessage';
-import { getPosts } from './../../apis/posts';
+import { getPublishedPosts } from './../../apis/posts';
 import { getCourse } from '../../apis/course';
 import RichTextDisplay from '../../utils/RichTextDisplay/RichTextDisplay';
 import homeImg from '/images/home.svg';
@@ -42,7 +42,7 @@ function Home() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await getPosts();
+        const response = await getPublishedPosts();
         const list = response.data.docs;
 
         const newPostsList = list.slice(0, 16).map((post) => ({
@@ -52,8 +52,12 @@ function Home() {
           representImage: post.representImage
             ? post.representImage.url
             : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-          createdAt: post.createdAt,
+          createdAt: post.publishedDate,
         }));
+
+        newPostsList.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        );
 
         setPostsList(newPostsList);
       } catch (error) {

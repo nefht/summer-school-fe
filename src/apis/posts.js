@@ -31,24 +31,11 @@ const getPublishedPosts = async (req, res) => {
 const getPostWithParams = async (params) => {
   const { page, limit, search } = params;
   try {
-    const response = await request.get(`/posts`, {
+    const response = await request.get(`/posts/published`, {
       params: {
         page,
         limit,
-        where: {
-          or: [
-            {
-              title: {
-                contains: search,
-              },
-            },
-            {
-              description: {
-                contains: search,
-              },
-            },
-          ],
-        },
+        search,
       },
     });
     return response;

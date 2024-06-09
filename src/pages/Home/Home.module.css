@@ -111,6 +111,12 @@
   height: 100px;
   font-weight: 400;
   color: var(--main-font-color);
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
 }
 
 .pagination {

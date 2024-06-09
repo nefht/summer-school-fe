@@ -107,6 +107,12 @@
   height: 100px;
   font-weight: 400;
   color: var(--main-font-color);
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
 }
 
 .remaining {
@@ -138,12 +144,21 @@
   display: flex;
 }
 
-.remaining-img {
+.remaining-img-container {
   width: 200px;
-  height: 100%;
   border-right: 1px solid var(--main-color);
   flex: 1;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fdfdfd;
+
+  .remaining-img {
+    width: 100%;
+    height: auto;
+    border-radius: 0px;
+  }
 }
 
 .remaining-content {
@@ -165,6 +180,7 @@
 .remaining-description {
   font-size: 1.6rem;
   font-weight: 400;
+  margin-bottom: 15px;
 }
 
 .remaining-date {
