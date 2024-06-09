@@ -47,6 +47,8 @@ function Posts() {
       const response = await getPublishedPosts();
       const list = response.data.docs;
 
+      console.log(response);
+
       const newPostsList = list.map((post) => ({
         id: post.id,
         title: post.title,
@@ -56,6 +58,11 @@ function Posts() {
           : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
         createdAt: post.publishedDate,
       }));
+
+      // Sắp xếp lại theo ngày đăng
+      newPostsList.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+      );
 
       return newPostsList;
     },
@@ -154,7 +161,13 @@ function Posts() {
         </div>
         <Row justify={'space-evenly'} style={{ width: '70%' }}>
           {recentPosts.map((post, index) => (
-            <Col xl={8} md={12} xs={24} className={cx('recent-post')}>
+            <Col
+              xl={8}
+              md={12}
+              xs={24}
+              className={cx('recent-post')}
+              key={index}
+            >
               {fetchPosts.isPending ? (
                 <Skeleton
                   active
@@ -214,7 +227,7 @@ function Posts() {
       </div>
       <div className={cx('remaining')}>
         <div className={cx('recent-tag')}>
-          Tin tức khác
+          Tất cả tin tức
           <img
             className={cx('vector-title')}
             src={vectorTitle}
@@ -239,34 +252,39 @@ function Posts() {
 
         {isPending && <LoadingSpin />}
 
-        {responseData?.data?.docs?.map((post) => (
-          <div className={cx('remaining-post')} key={post.id}>
-            <img
-              className={cx('remaining-img')}
-              src={
-                post.representImage
-                  ? post.representImage.url
-                  : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
-              }
-              alt=""
-              onClick={() => handleOpenPostDetail(post.id)}
-            />
-            <div className={cx('remaining-content')}>
-              <div
-                className={cx('remaining-title')}
-                onClick={() => handleOpenPostDetail(post.id)}
-              >
-                {post.title}
+        {responseData?.data?.docs
+          .slice()
+          .sort((a, b) => new Date(b.publishedDate) - new Date(a.publishedDate))
+          .map((post) => (
+            <div className={cx('remaining-post')} key={post.id}>
+              <div className={cx('remaining-img-container')}>
+                <img
+                  className={cx('remaining-img')}
+                  src={
+                    post.representImage
+                      ? post.representImage.url
+                      : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
+                  }
+                  alt=""
+                  onClick={() => handleOpenPostDetail(post.id)}
+                />
               </div>
-              <div className={cx('remaining-description')}>
-                {post.description}
-              </div>
-              <div className={cx('remaining-date')}>
-                <CalendarOutlined /> {formatDate(post.createdAt)}
+              <div className={cx('remaining-content')}>
+                <div
+                  className={cx('remaining-title')}
+                  onClick={() => handleOpenPostDetail(post.id)}
+                >
+                  {post.title}
+                </div>
+                <div className={cx('remaining-description')}>
+                  {post.description}
+                </div>
+                <div className={cx('remaining-date')}>
+                  <CalendarOutlined /> {formatDate(post.publishedDate)}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
         {/* {remainingPosts.map((post) => (
           <div className={cx('remaining-post')}>
             <img
