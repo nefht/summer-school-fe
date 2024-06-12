@@ -13,7 +13,7 @@ import exploreButton from '/images/explore-btn.svg';
 import vectorTitle from '/images/vector-title.svg';
 import vectorTitle2 from '/images/vector-title2.svg';
 import homeDecor from '/images/home-decor.svg';
-import certificate from '/images/certificate.svg';
+import certificate from '/images/certificate-vi.svg';
 import lecturers from '/images/lecturers.svg';
 import icon1 from '/images/home-icon1.svg';
 import icon2 from '/images/home-icon2.svg';
