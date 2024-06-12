@@ -13,7 +13,7 @@ const getPosts = async (req, res) => {
 // Get posts được published
 const getPublishedPosts = async (req, res) => {
   try {
-    const response = await request.get('/posts/published');
+    const response = await request.get('/posts/published-all');
     return response;
   } catch (error) {
     res.status(500).json({ message: error.message });

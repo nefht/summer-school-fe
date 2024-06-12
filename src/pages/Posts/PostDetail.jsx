@@ -28,7 +28,7 @@ function PostDetail() {
     },
     onSuccess: (response) => {
       setPost(response.data);
-      setPostContent(response.data.layout[0].content);
+      setPostContent(response.data.content);
     },
     onError: (error) => {
       messageApi.error(error.message);

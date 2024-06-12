@@ -11,6 +11,7 @@ import {
   Input,
   Pagination,
   Skeleton,
+  Tooltip,
 } from 'antd';
 import { CalendarOutlined } from '@ant-design/icons';
 import { useQuery, useMutation } from '@tanstack/react-query';
@@ -77,6 +78,8 @@ function Posts() {
       console.error('Error fetching posts:', error);
     },
   });
+
+  console.log(postsList);
 
   useEffect(() => {
     fetchPosts.mutate();
@@ -211,7 +214,9 @@ function Posts() {
                 >
                   <Meta
                     title={
-                      <span className={cx('post-title')}>{post.title}</span>
+                      <Tooltip title={post.title}>
+                        <span className={cx('post-title')}>{post.title}</span>
+                      </Tooltip>
                     }
                     description={
                       <div className={cx('post-description')}>

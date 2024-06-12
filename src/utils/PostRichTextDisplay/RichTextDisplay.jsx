@@ -40,21 +40,53 @@ const RichTextDisplay = ({ data }) => {
             </a>
           );
         case 'h1':
-          return <h1 key={index}>{renderChildren(child.children)}</h1>;
+          return (
+            <h1 key={index} style={{ margin: '20px 0px' }}>
+              {renderChildren(child.children)}
+            </h1>
+          );
         case 'h2':
-          return <h2 key={index}>{renderChildren(child.children)}</h2>;
+          return (
+            <h2 key={index} style={{ margin: '15px 0px 10px 0px' }}>
+              {renderChildren(child.children)}
+            </h2>
+          );
         case 'h3':
-          return <h3 key={index}>{renderChildren(child.children)}</h3>;
+          return (
+            <h3 key={index} style={{ margin: '15px 0px 10px 0px' }}>
+              {renderChildren(child.children)}
+            </h3>
+          );
         case 'h4':
-          return <h4 key={index}>{renderChildren(child.children)}</h4>;
+          return (
+            <h4 key={index} style={{ margin: '15px 0px 10px 0px' }}>
+              {renderChildren(child.children)}
+            </h4>
+          );
         case 'h5':
-          return <h5 key={index}>{renderChildren(child.children)}</h5>;
+          return (
+            <h5 key={index} style={{ margin: '15px 0px 10px 0px' }}>
+              {renderChildren(child.children)}
+            </h5>
+          );
         case 'h6':
-          return <h6 key={index}>{renderChildren(child.children)}</h6>;
+          return (
+            <h6 key={index} style={{ margin: '15px 0px 10px 0px' }}>
+              {renderChildren(child.children)}
+            </h6>
+          );
         case 'ol':
-          return <ol key={index}>{renderChildren(child.children)}</ol>;
+          return (
+            <ol key={index} style={{ margin: '15px 0px 10px 0px' }}>
+              {renderChildren(child.children)}
+            </ol>
+          );
         case 'ul':
-          return <ul key={index}>{renderChildren(child.children)}</ul>;
+          return (
+            <ul key={index} style={{ margin: '15px 0px 10px 0px' }}>
+              {renderChildren(child.children)}
+            </ul>
+          );
         case 'blockquote':
           return (
             <blockquote key={index}>
