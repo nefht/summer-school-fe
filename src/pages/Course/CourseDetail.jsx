@@ -108,6 +108,7 @@ function CourseDetail() {
           src={homeDecor}
           alt="Home decoration"
         /> */}
+        <div style={{ width: '100%', height: '30px' }}></div>
         <RegistrationTime atCourse courseStatus={courseData.status} />
       </div>
     </>

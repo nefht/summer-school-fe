@@ -20,6 +20,7 @@ import {
   BankOutlined,
   EditOutlined,
 } from '@ant-design/icons';
+import ReCAPTCHA from 'react-google-recaptcha';
 import useMessage from '../../hooks/useMessage';
 
 import logoName from '/images/logo-name.svg';
@@ -33,6 +34,8 @@ const { TextArea } = Input;
 
 function RegistrationModal({ open = false, setOpen }) {
   const { messageApi, contextHolder } = useMessage();
+
+  const [captchaVerified, setCaptchaVerified] = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -63,6 +66,10 @@ function RegistrationModal({ open = false, setOpen }) {
       ...data,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleCaptchaChange = () => {
+    setCaptchaVerified(true);
   };
 
   const handleSubmit = useMutation({
@@ -212,7 +219,7 @@ function RegistrationModal({ open = false, setOpen }) {
                 rules={[
                   {
                     required: true,
-                    message: 'Vui lòng nhập địa chỉ Email của bạn!',
+                    message: 'Vui lòng nhập địa chỉ email của bạn!',
                   },
                 ]}
               >
@@ -340,6 +347,23 @@ function RegistrationModal({ open = false, setOpen }) {
                   onChange={handleChangeForm}
                 />
               </Form.Item>
+
+              <Form.Item
+                name="captcha"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Vui bấm chọn captcha!',
+                  },
+                ]}
+              >
+                <ReCAPTCHA
+                  name="captcha"
+                  sitekey="6Ld-dPcpAAAAADOEiIALoPfiGxJX8VVlTAQMNAAe"
+                  onChange={handleCaptchaChange}
+                />
+              </Form.Item>
+
               <i className={cx('end-text')}>
                 <span>(*)</span> là các mục bắt buộc
               </i>
@@ -348,6 +372,7 @@ function RegistrationModal({ open = false, setOpen }) {
                 className={cx('form-btn')}
                 type="primary"
                 disabled={handleSubmit.isPending}
+                // disabled={!captchaVerified || handleSubmit.isPending}
                 onClick={() => handleSubmit.mutate({ data })}
               >
                 Xác nhận

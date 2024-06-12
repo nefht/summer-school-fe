@@ -54,7 +54,7 @@
   font-size: 2.8rem;
   font-weight: 700;
   color: #fdfdfd;
-  margin-bottom: 50px;
+  margin: 0px 20px 50px;
 }
 
 .course-description {
@@ -67,6 +67,8 @@
 
 .course-part {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 70%;
   height: auto;
   border: 2px solid var(--special-color);
@@ -81,9 +83,11 @@
   height: auto;
   border-radius: 10px;
   border: 1px solid #aeaeae;
+  margin-right: 10px;
 }
 
 .part-title {
+  font-family: 'Inter', sans-serif;
   font-size: 2.4rem;
   font-weight: 600;
   color: var(--main-color);
@@ -93,7 +97,8 @@
 .part-description {
   margin: 10px 25px;
   text-align: justify;
-  line-height: 20px;
+  line-height: 25px;
+  font-size: 1.6rem;
   /* text-align: center; */
 }
 
@@ -129,4 +134,18 @@
   right: -550px;
   top: 900px;
   z-index: 998;
+}
+
+@media (max-width: 1200px) {
+  .part-img {
+    display: none;
+  }
+
+  .decor-left {
+    width: 20%;
+  }
+
+  .decor-right {
+    width: 20%;
+  }
 }
