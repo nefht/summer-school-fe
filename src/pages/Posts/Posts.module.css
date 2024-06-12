@@ -50,6 +50,10 @@
   font-size: 3rem;
   font-weight: 700;
   cursor: pointer;
+
+  &:hover {
+    color: var(--main-color);
+  }
 }
 
 .newest-description {
@@ -179,6 +183,10 @@
   color: var(--main-font-color);
   margin-bottom: 10px;
   cursor: pointer;
+
+  &:hover {
+    color: var(--main-color);
+  }
 }
 
 .remaining-description {
@@ -188,9 +196,11 @@
 }
 
 .remaining-date {
+  font-family: 'Inter', sans-serif;
   border-top: 1px solid #aeaeae;
   align-self: flex-end;
   color: var(--main-color);
   position: absolute;
   bottom: 10px;
+  padding-top: 5px;
 }

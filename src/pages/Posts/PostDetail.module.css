@@ -36,6 +36,7 @@
   margin: 80px 0px 50px;
   font-weight: 800;
   font-size: 4rem;
+  /* font-family: 'Inter', sans-serif; */
 }
 
 .date {
@@ -47,4 +48,8 @@
   color: var(--main-color);
   align-self: flex-start;
   /* border-bottom: 1px solid var(--main-color); */
+
+  div {
+    font-family: 'Inter', sans-serif;
+  }
 }
