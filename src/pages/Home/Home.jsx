@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Home.module.css';
-import { Row, Col, Button, Card, Typography } from 'antd';
+import { Row, Col, Button, Card, Typography, Tooltip } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import useMessage from './../../hooks/useMessage';
 import { getPublishedPosts } from './../../apis/posts';
@@ -89,7 +89,7 @@ function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentPage((prevPage) => (prevPage + 1) % postsList.length);
-    }, 4000);
+    }, 5000);
 
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, [postsList.length]);
@@ -181,7 +181,11 @@ function Home() {
                 ]}
               >
                 <Meta
-                  title={<span className={cx('post-title')}>{post.title}</span>}
+                  title={
+                    <Tooltip title={post.title}>
+                      <span className={cx('post-title')}>{post.title}</span>
+                    </Tooltip>
+                  }
                   description={
                     <div className={cx('post-description')}>
                       {post.description}
